@@ -13,9 +13,9 @@ repository = "https://github.com/disconnect3d/test-fuzz"
 afl = "0.12.2"
 serde = "1.0.116"
 
-internal = { path = "../internal", package = "test-fuzz-internal", version = "=2.0.4" }
-runtime = { path = "../runtime", package = "test-fuzz-runtime", version = "=2.0.4" }
-test-fuzz-macro = { path = "../macro", version = "=2.0.4" }
+internal = { path = "../internal", package = "test-fuzz-internal", version = "=2.0.5" }
+runtime = { path = "../runtime", package = "test-fuzz-runtime", version = "=2.0.5" }
+test-fuzz-macro = { path = "../macro", version = "=2.0.5" }
 
 # smoelius: A list of formats we might support can be found here:
 # https://github.com/djkoloski/rust_serialization_benchmark
