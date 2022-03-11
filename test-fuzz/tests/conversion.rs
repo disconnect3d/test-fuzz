@@ -10,12 +10,10 @@ fn conversion() {
     command.assert().success();
 
     command
-        .args(["--features", "__bar_fuzz"])
+        .args(["--features", "__inapplicable_conversion"])
         .assert()
         .failure()
-        .stderr(predicate::str::contains(
-            "the name `bar_fuzz` is defined multiple times",
-        ));
+        .stderr(predicate::str::is_match(r#"(?m)\bConversion "Y" -> "Z" did not apply to the following cadidates: \{\s*"X",\s*}$"#).unwrap());
 }
 
 fn test() -> Command {
