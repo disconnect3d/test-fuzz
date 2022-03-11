@@ -784,9 +784,9 @@ fn consolidate(opts: &TestFuzz, executable_targets: &[(Executable, Vec<String>)]
                     let data = read(&path).with_context(|| {
                         format!("`read` failed for `{}`", path.to_string_lossy())
                     })?;
-                    test_fuzz::runtime::write_data(&corpus_dir, &data).with_context(|| {
+                    test_fuzz::test_fuzz_runtime::write_data(&corpus_dir, &data).with_context(|| {
                         format!(
-                            "`test_fuzz::runtime::write_data` failed for `{}`",
+                            "`test_fuzz::test_fuzz_runtime::write_data` failed for `{}`",
                             corpus_dir.to_string_lossy()
                         )
                     })?;

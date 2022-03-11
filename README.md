@@ -457,7 +457,7 @@ The traits that `cargo-test-fuzz` currently supports and the values generated fo
 - `Div` - [`core::ops::Div`](https://doc.rust-lang.org/beta/core/ops/trait.Div.html)
 - `One` - [`num_traits::One`](https://docs.rs/num-traits/0.2.14/num_traits/identities/trait.One.html)
 - `Sub` - [`core::ops::Sub`](https://doc.rust-lang.org/beta/core/ops/trait.Sub.html)
-- `Two` - `test_fuzz::runtime::traits::Two` (essentially `Add + One`)
+- `Two` - `test_fuzz::test_fuzz_runtime::traits::Two` (essentially `Add + One`)
 
 ## Environment variables
 

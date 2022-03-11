@@ -379,7 +379,7 @@ fn map_method_or_fn(
         .iter()
         .map(|ty| {
             parse_quote! {
-                test_fuzz::runtime::auto!( #ty ).collect::<Vec<_>>()
+                test_fuzz::test_fuzz_runtime::auto!( #ty ).collect::<Vec<_>>()
             }
         })
         .collect();
@@ -431,8 +431,8 @@ fn map_method_or_fn(
         let concretization = [
             #(#ty_names),*
         ];
-        test_fuzz::runtime::write_impl_concretization::< #mod_ident :: Args #ty_generics_as_turbofish>(&impl_concretization);
-        test_fuzz::runtime::write_concretization::< #mod_ident :: Args #ty_generics_as_turbofish>(&concretization);
+        test_fuzz::test_fuzz_runtime::write_impl_concretization::< #mod_ident :: Args #ty_generics_as_turbofish>(&impl_concretization);
+        test_fuzz::test_fuzz_runtime::write_concretization::< #mod_ident :: Args #ty_generics_as_turbofish>(&concretization);
     };
     let write_args = if opts.only_concretizations {
         quote! {}
@@ -445,7 +445,7 @@ fn map_method_or_fn(
     };
     let write_concretizations_and_args = quote! {
         #[cfg(test)]
-        if !test_fuzz::runtime::test_fuzz_enabled() {
+        if !test_fuzz::test_fuzz_runtime::test_fuzz_enabled() {
             #write_concretizations
             #write_args
         }
@@ -454,7 +454,7 @@ fn map_method_or_fn(
         (
             quote! {
                 #[cfg(not(test))]
-                if test_fuzz::runtime::write_enabled() {
+                if test_fuzz::test_fuzz_runtime::write_enabled() {
                     #write_concretizations
                     #write_args
                 }
@@ -493,7 +493,7 @@ fn map_method_or_fn(
         #[cfg(not(feature = "__persistent"))]
         quote! {
             args.as_ref().map(|x| {
-                if test_fuzz::runtime::pretty_print_enabled() {
+                if test_fuzz::test_fuzz_runtime::pretty_print_enabled() {
                     eprint!("{:#?}", x);
                 } else {
                     eprint!("{:?}", x);
@@ -564,9 +564,9 @@ fn map_method_or_fn(
             struct Ret( #args_ret_ty );
             impl std::fmt::Debug for Ret {
                 fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                    use test_fuzz::runtime::TryDebugFallback;
+                    use test_fuzz::test_fuzz_runtime::TryDebugFallback;
                     let mut debug_tuple = fmt.debug_tuple("Ret");
-                    test_fuzz::runtime::TryDebug(&self.0).apply(&mut |value| {
+                    test_fuzz::test_fuzz_runtime::TryDebug(&self.0).apply(&mut |value| {
                         debug_tuple.field(value);
                     });
                     debug_tuple.finish()
@@ -574,7 +574,7 @@ fn map_method_or_fn(
             }
             let ret = ret.map(Ret);
             ret.map(|x| {
-                if test_fuzz::runtime::pretty_print_enabled() {
+                if test_fuzz::test_fuzz_runtime::pretty_print_enabled() {
                     eprint!("{:#?}", x);
                 } else {
                     eprint!("{:?}", x);
@@ -598,7 +598,7 @@ fn map_method_or_fn(
                 let args = Args(
                     #(#args_is),*
                 );
-                test_fuzz::runtime::write_args(#serde_format, &args);
+                test_fuzz::test_fuzz_runtime::write_args(#serde_format, &args);
             }
 
             struct UsingReader<R>(R);
@@ -609,7 +609,7 @@ fn map_method_or_fn(
                     struct Args #ty_generics (
                         #(#pub_arg_tys),*
                     ) #args_where_clause;
-                    let args = test_fuzz::runtime::read_args::<Args #ty_generics_as_turbofish, _>(#serde_format, reader);
+                    let args = test_fuzz::test_fuzz_runtime::read_args::<Args #ty_generics_as_turbofish, _>(#serde_format, reader);
                     args.map(|args| #mod_ident :: Args(
                         #(#args_is),*
                     ))
@@ -618,7 +618,7 @@ fn map_method_or_fn(
 
             impl #impl_generics std::fmt::Debug for Args #ty_generics #where_clause {
                 fn fmt(&self, fmt: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-                    use test_fuzz::runtime::TryDebugFallback;
+                    use test_fuzz::test_fuzz_runtime::TryDebugFallback;
                     let mut debug_struct = fmt.debug_struct("Args");
                     #(#fmt_args)*
                     debug_struct.finish()
@@ -653,7 +653,7 @@ fn map_method_or_fn(
                     // smoelius: `#autos` could refer to type parameters. Expanding it in a method
                     // definition like this ensures such type parameters resolve.
                     fn auto_generate() {
-                        if !test_fuzz::runtime::test_fuzz_enabled() {
+                        if !test_fuzz::test_fuzz_runtime::test_fuzz_enabled() {
                             let autos = ( #(#autos,)* );
                             for args in #args_from_autos {
                                 write_args(args);
@@ -664,15 +664,15 @@ fn map_method_or_fn(
                     fn entry() {
                         // smoelius: Do not set the panic hook when replaying. Leave cargo test's
                         // panic hook in place.
-                        if test_fuzz::runtime::test_fuzz_enabled() {
-                            if test_fuzz::runtime::display_enabled()
-                                || test_fuzz::runtime::replay_enabled()
+                        if test_fuzz::test_fuzz_runtime::test_fuzz_enabled() {
+                            if test_fuzz::test_fuzz_runtime::display_enabled()
+                                || test_fuzz::test_fuzz_runtime::replay_enabled()
                             {
                                 #input_args
-                                if test_fuzz::runtime::display_enabled() {
+                                if test_fuzz::test_fuzz_runtime::display_enabled() {
                                     #output_args
                                 }
-                                if test_fuzz::runtime::replay_enabled() {
+                                if test_fuzz::test_fuzz_runtime::replay_enabled() {
                                     #call_in_environment_with_deserialized_arguments
                                     #output_ret
                                 }
@@ -766,7 +766,7 @@ fn map_arg(
                     .map(|(and, lifetime)| quote! { #and #lifetime });
                 let ty = parse_quote! { #reference #mutability #self_ty };
                 let fmt = parse_quote! {
-                    test_fuzz::runtime::TryDebug(&self.#i).apply(&mut |value| {
+                    test_fuzz::test_fuzz_runtime::TryDebug(&self.#i).apply(&mut |value| {
                         debug_struct.field("self", value);
                     });
                 };
@@ -779,7 +779,7 @@ fn map_arg(
                 });
                 let name = format!("{}", pat.to_token_stream());
                 let fmt = parse_quote! {
-                    test_fuzz::runtime::TryDebug(&self.#i).apply(&mut |value| {
+                    test_fuzz::test_fuzz_runtime::TryDebug(&self.#i).apply(&mut |value| {
                         debug_struct.field(#name, value);
                     });
                 };
