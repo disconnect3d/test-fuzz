@@ -7,7 +7,7 @@ description = "cargo-test-fuzz"
 
 authors = ["Samuel E. Moelius III <sam@moeli.us>"]
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/trailofbits/test-fuzz"
+repository = "https://github.com/disconnect3d/test-fuzz"
 
 [[bin]]
 name = "cargo-test-fuzz"
