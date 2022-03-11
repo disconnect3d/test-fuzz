@@ -2,7 +2,7 @@ use anyhow::{bail, ensure, Context, Result};
 use assert_cmd::Command;
 use cargo_metadata::{Artifact, ArtifactProfile, Message};
 use if_chain::if_chain;
-use internal::{auto_concretize_enabled, serde_format};
+use test_fuzz_internal::{auto_concretize_enabled, serde_format};
 use lazy_static::lazy_static;
 use log::debug;
 use std::{io::BufReader, path::Path};

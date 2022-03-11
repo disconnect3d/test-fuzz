@@ -1,4 +1,4 @@
-use internal::{
+use test_fuzz_internal::{
     auto_concretize_enabled,
     dirs::{concretizations_directory_from_target, impl_concretizations_directory_from_target},
 };

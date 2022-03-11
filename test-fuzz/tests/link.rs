@@ -1,5 +1,5 @@
 use assert_cmd::Command;
-use internal::dirs::target_directory;
+use test_fuzz_internal::dirs::target_directory;
 use predicates::prelude::*;
 use testing::examples::MANIFEST_PATH;
 

@@ -3,7 +3,7 @@
 #![cfg_attr(feature = "__auto_concretize", feature(proc_macro_span))]
 
 use darling::FromMeta;
-use internal::serde_format;
+use test_fuzz_internal::serde_format;
 use lazy_static::lazy_static;
 use proc_macro::TokenStream;
 use proc_macro2::{Literal, Span, TokenStream as TokenStream2};

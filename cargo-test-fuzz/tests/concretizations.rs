@@ -1,4 +1,4 @@
-use internal::dirs::{
+use test_fuzz_internal::dirs::{
     concretizations_directory_from_target, impl_concretizations_directory_from_target,
 };
 use std::fs::remove_dir_all;

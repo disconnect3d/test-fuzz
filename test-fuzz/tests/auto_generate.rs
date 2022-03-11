@@ -1,4 +1,4 @@
-use internal::dirs::corpus_directory_from_target;
+use test_fuzz_internal::dirs::corpus_directory_from_target;
 use std::fs::{read_dir, remove_dir_all};
 use testing::examples;
 
