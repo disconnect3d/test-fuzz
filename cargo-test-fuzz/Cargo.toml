@@ -29,7 +29,7 @@ semver = "1.0.6"
 serde = { version = "1.0.136", features = ["derive"] }
 subprocess = "0.2.8"
 
-test-fuzz-internal = { path = "../internal", package = "test-fuzz-internal", version = "=2.0.5" }
+test-fuzz-internal = { path = "../test-fuzz-internal", package = "test-fuzz-internal", version = "=2.0.5" }
 test-fuzz = { path = "../test-fuzz", version = "=2.0.5" }
 
 [dev-dependencies]

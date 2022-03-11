@@ -14,4 +14,4 @@ log = "0.4.14"
 retry = "1.3.1"
 subprocess = "0.2.8"
 
-test-fuzz-internal = { path = "../internal", package = "test-fuzz-internal", version = "=2.0.5" }
+test-fuzz-internal = { path = "../test-fuzz-internal", package = "test-fuzz-internal", version = "=2.0.5" }
