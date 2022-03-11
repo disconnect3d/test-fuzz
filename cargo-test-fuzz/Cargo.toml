@@ -1,6 +1,6 @@
 [package]
 name = "cargo-test-fuzz"
-version = "2.0.4"
+version = "2.0.5"
 edition = "2018"
 
 description = "cargo-test-fuzz"

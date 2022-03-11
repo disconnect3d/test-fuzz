@@ -417,7 +417,7 @@ The `cargo test-fuzz` command is used to interact with fuzz targets, and to mani
 The features in this section apply to the `test-fuzz` package as a whole. Enable them in `test-fuzz`'s dependency specification as described in the [The Cargo Book](https://doc.rust-lang.org/cargo/reference/specifying-dependencies.html#choosing-features). For example, to enable the `auto_concretize` feature, use:
 
 ```toml
-test-fuzz = { version = "2.0.4", features = ["auto_concretize"] }
+test-fuzz = { version = "2.0.5", features = ["auto_concretize"] }
 ```
 
 The `test-fuzz` package currently supports the following features:
