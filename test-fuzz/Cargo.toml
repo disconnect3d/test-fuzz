@@ -10,7 +10,7 @@ license = "MIT OR Apache-2.0"
 repository = "https://github.com/disconnect3d/test-fuzz"
 
 [dependencies]
-afl = "0.12.2"
+afl = "0.11.1"
 serde = "1.0.116"
 
 test-fuzz-internal = { path = "../test-fuzz-internal", package = "test-fuzz-internal", version = "=2.0.5" }
