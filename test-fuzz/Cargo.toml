@@ -21,10 +21,10 @@ test-fuzz-macro = { path = "../macro", version = "=2.0.5" }
 # https://github.com/djkoloski/rust_serialization_benchmark
 
 [features]
-auto_concretize = ["internal/__auto_concretize", "test-fuzz-macro/__auto_concretize"]
-serde_bincode = ["internal/__serde_bincode", "runtime/__serde_bincode", "test-fuzz-macro/__serde_bincode"]
-serde_cbor = ["internal/__serde_cbor", "runtime/__serde_cbor", "test-fuzz-macro/__serde_cbor"]
-serde_cbor4ii = ["internal/__serde_cbor4ii", "runtime/__serde_cbor4ii", "test-fuzz-macro/__serde_cbor4ii"]
+auto_concretize = ["test-fuzz-internal/__auto_concretize", "test-fuzz-macro/__auto_concretize"]
+serde_bincode = ["test-fuzz-internal/__serde_bincode", "test-fuzz-runtime/__serde_bincode", "test-fuzz-macro/__serde_bincode"]
+serde_cbor = ["test-fuzz-internal/__serde_cbor", "test-fuzz-runtime/__serde_cbor", "test-fuzz-macro/__serde_cbor"]
+serde_cbor4ii = ["test-fuzz-internal/__serde_cbor4ii", "test-fuzz-runtime/__serde_cbor4ii", "test-fuzz-macro/__serde_cbor4ii"]
 __persistent = ["test-fuzz-macro/__persistent"]
 
 [package.metadata.cargo-udeps.ignore]
